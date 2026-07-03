@@ -55,15 +55,15 @@ export default function Pathways() {
 
               <div className="grid content-start gap-4">
                 <div className="flex items-center gap-4 border border-mist-200 bg-white p-4">
-                  <div className="w-20 shrink-0"><Avatar name={p.head.name} /></div>
+                  <div className="w-20 shrink-0"><Avatar name={p.head.name} src="/photos/leader.jpg" /></div>
                   <div>
                     <p className="text-[11px] font-semibold uppercase tracking-wider text-maroon-700">{p.head.role}</p>
                     <p className="font-display text-base font-semibold">{p.head.name}</p>
-                    <p className="text-[12px] text-mist-500">Profile placeholder</p>
+                    <p className="text-[12px] text-mist-500">Pathway lead</p>
                   </div>
                 </div>
-                <Media label={`${p.name} — gallery & activities`} />
-                <Media label={`${p.name} — learners at work`} ratio="aspect-[16/8]" />
+                <Media label={`${p.name} — learners at work`} ratio="aspect-[16/9]" src={p.photo} kind={p.slug === "stem" ? "lab" : "book"} />
+                <Media label={`${p.name} — gallery & activities`} kind={p.slug === "stem" ? "lab" : "book"} />
               </div>
             </div>
           </div>

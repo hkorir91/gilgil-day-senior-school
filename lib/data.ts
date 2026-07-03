@@ -10,9 +10,11 @@ export const school = {
   motto: "Knowledge is Power",
   type: "Public Mixed Day Senior School",
   location: "Gilgil Town, Nakuru County, Kenya",
-  phone: "+254 7XX XXX XXX",
-  email: "info@gilgildaysenior.sc.ke",
-  admissionsEmail: "admissions@gilgildaysenior.sc.ke",
+  phone: "0716 851 146",
+  phoneRaw: "+254716851146",
+  email: "gilgildaysecondaryschool@gmail.com",
+  emailAlt: "info@gilgilday.co.ke",
+  admissionsEmail: "info@gilgilday.co.ke",
   poBox: "P.O. Box 85 – 20116, Gilgil",
   constituency: "Naivasha Constituency",
   county: "Nakuru County",
@@ -63,7 +65,8 @@ export const footerLinks = [
 export type Person = {
   name: string;
   role: string;
-  short?: string;   // short label under name
+  short?: string;
+  photo?: string;
   message?: string;
   bio?: string;
 };
@@ -79,8 +82,13 @@ export const principal: Person = {
   name: "David Muhia",
   role: "Principal",
   short: "Head of School",
+  photo: "/photos/principal.jpg",
   message: principalMessage,
 };
+
+// Helper: assigns leader photo to every leadership Person that doesn't already have one.
+const withLeaderPhoto = (people: Person[]): Person[] =>
+  people.map((p) => (p.photo ? p : { ...p, photo: "/photos/leader.jpg" }));
 
 // ---------- Leadership hierarchy (used on About and Leadership) ----------
 // Ordered top-down. Groups nest under levels.
@@ -92,33 +100,33 @@ export const leadership = {
 
   executive: [principal] as Person[],
 
-  deputies: [
+  deputies: withLeaderPhoto([
     { name: "Muriithi Grace", role: "Deputy Principal — Administration", short: "DP · Admin" },
     { name: "David Asiago", role: "Deputy Principal — Academics", short: "DP · Academics" },
-  ] as Person[],
+  ]),
 
-  academicLeadership: [
+  academicLeadership: withLeaderPhoto([
     { name: "Tirus Kinyua", role: "Dean of Academics / Director of Studies", short: "Dean · DoS" },
     { name: "Peter Kamau", role: "School Bursar", short: "Finance" },
-  ] as Person[],
+  ]),
 
-  pathwayHeads: [
+  pathwayHeads: withLeaderPhoto([
     { name: "Abuodha Wyclif", role: "Head of STEM Pathway", short: "STEM" },
     { name: "Mwaora Peter", role: "Head of Social Sciences Pathway", short: "Social Sciences" },
     { name: "Njuguna J.", role: "Head of Contemporary Issues", short: "Contemporary Issues" },
-  ] as Person[],
+  ]),
 
-  trackHeads: [
+  trackHeads: withLeaderPhoto([
     { name: "Wainaina J.", role: "Head of Pure Sciences Track", short: "Pure Sciences" },
     { name: "Ochieng J.", role: "Head of Applied Sciences Track", short: "Applied Sciences" },
     { name: "Macharia Jane", role: "Head of Languages Track", short: "Languages" },
     { name: "Koech Richard", role: "Head of Humanities & Business Track", short: "Humanities & Business" },
-  ] as Person[],
+  ]),
 
-  coordinators: [
+  coordinators: withLeaderPhoto([
     { name: "Masinde Mercy", role: "Head of Class Teachers", short: "Class Teachers" },
     { name: "Silvanus Gekonge", role: "Head of Games", short: "Games" },
-  ] as Person[],
+  ]),
 };
 
 // Flat list used on Staff/About administration grids
@@ -144,6 +152,7 @@ export type Pathway = {
   head: Person;
   tracks: { name: string; head: string; subjects: string[] }[];
   careers: string[];
+  photo?: string;
 };
 
 export const pathways: Pathway[] = [
@@ -153,6 +162,7 @@ export const pathways: Pathway[] = [
     summary:
       "Science, Technology, Engineering and Mathematics. Structured around the Pure Sciences and Applied Sciences tracks, preparing learners for scientific, technical and engineering careers.",
     head: { name: "Abuodha Wyclif", role: "Head of STEM Pathway" },
+    photo: "/photos/stem.jpg",
     tracks: [
       { name: "Pure Sciences", head: "Wainaina J.", subjects: ["Mathematics", "Biology", "Chemistry", "Physics"] },
       { name: "Applied Sciences", head: "Ochieng J.", subjects: ["Agriculture", "Computer Studies", "Home Science"] },
@@ -165,6 +175,7 @@ export const pathways: Pathway[] = [
     summary:
       "Languages, humanities and business studies. Structured around the Languages and Humanities & Business tracks, preparing learners for law, communication, business, governance and the social sector.",
     head: { name: "Mwaora Peter", role: "Head of Social Sciences Pathway" },
+    photo: "/photos/social.jpg",
     tracks: [
       { name: "Languages", head: "Macharia Jane", subjects: ["English", "Kiswahili"] },
       { name: "Humanities and Business", head: "Koech Richard", subjects: ["Geography", "History", "CRE", "Business Studies"] },
@@ -330,23 +341,38 @@ export const gallery: GalleryItem[] = [
   { title: "Library study session", filter: "Academics" },
 ];
 
+// ---------- Site photos (single source of truth for image swaps) ----------
+// Change any path here and it updates everywhere on the site.
+export const sitePhotos = {
+  hero:      "/photos/photo1.jpg",   // top of landing page (large landscape)
+  compound:  "/photos/photo2.jpg",   // main school building
+  assembly:  "/photos/students.jpg", // students in parade formation
+  student:   "/photos/photo4.jpg",   // used across KCSE performer cards
+  students:  "/photos/students.jpg", // students council group photo, student body
+  stem:      "/photos/stem.jpg",     // STEM pathway card (science lab)
+  social:    "/photos/social.jpg",   // Social Sciences pathway card (geography fieldwork)
+  principal: "/photos/principal.jpg",// David Muhia's portrait
+  leader:    "/photos/leader.jpg",   // used for deputies, DoS, heads, coordinators
+  teacher:   "/photos/teacher.jpg",  // used for teachers in staff listings
+};
+
 // ---------- KCSE 2025 top performers (Alumni page) ----------
-// Placeholder cards ready for real names, grades and destinations.
-// Uploaded from the Admin dashboard when official results are released.
-export type Performer = { position: string; grade: string; note?: string; destination?: string };
+export type Performer = { position: string; grade: string; note?: string; destination?: string; photo?: string };
 
 export const kcse2025 = {
-  headline: "KCSE 2025 — Top Performers",
-  summary: "Congratulations to the 2025 candidate class, their teachers and parents. The names, portraits and university destinations below are placeholders — the school uploads final data from the Admin dashboard.",
+  headline: "KCSE 2025 — University-Bound Class",
+  summary: "Congratulations to the 2025 candidate class and their teachers. Grades from B+ down to C+ represent the university transition threshold under KUCCPS. Portraits will be replaced with each learner's individual photo as the school uploads them.",
   performers: [
-    { position: "1st Overall",  grade: "A",  destination: "University placement — pending" },
-    { position: "2nd Overall",  grade: "A-", destination: "University placement — pending" },
-    { position: "3rd Overall",  grade: "A-", destination: "University placement — pending" },
-    { position: "4th Overall",  grade: "B+", destination: "University placement — pending" },
-    { position: "Top in STEM",  grade: "A",  note: "Highest mean in the STEM pathway" },
-    { position: "Top in Social Sciences", grade: "A-", note: "Highest mean in the Social Sciences pathway" },
-    { position: "Top in Languages", grade: "A-", note: "Top combined English + Kiswahili" },
-    { position: "Most Improved", grade: "B+", note: "Highest term-on-term improvement" },
+    { position: "Learner 1",  grade: "B+", destination: "Bachelor of Education — pending placement", photo: sitePhotos.student },
+    { position: "Learner 2",  grade: "B+", destination: "Bachelor of Commerce — pending placement",  photo: sitePhotos.student },
+    { position: "Learner 3",  grade: "B",  destination: "Bachelor of Science — pending placement",   photo: sitePhotos.student },
+    { position: "Learner 4",  grade: "B",  destination: "Bachelor of Arts — pending placement",      photo: sitePhotos.student },
+    { position: "Learner 5",  grade: "B",  destination: "Agriculture — pending placement",           photo: sitePhotos.student },
+    { position: "Learner 6",  grade: "B-", destination: "Bachelor of Education — pending placement", photo: sitePhotos.student },
+    { position: "Learner 7",  grade: "B-", destination: "Community Health — pending placement",      photo: sitePhotos.student },
+    { position: "Learner 8",  grade: "C+", destination: "Diploma pathway — pending placement",       photo: sitePhotos.student },
+    { position: "Learner 9",  grade: "C+", destination: "Diploma pathway — pending placement",       photo: sitePhotos.student },
+    { position: "Learner 10", grade: "C+", destination: "Diploma pathway — pending placement",       photo: sitePhotos.student },
   ] as Performer[],
 };
 

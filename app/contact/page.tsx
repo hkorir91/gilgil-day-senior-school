@@ -50,9 +50,9 @@ export default function Contact() {
             <p className="text-sm">{school.email}</p>
             <p className="text-sm">{school.admissionsEmail}</p>
           </div>
-          <button className="btn bg-[#25D366] text-white hover:opacity-90" onClick={() => alert("WhatsApp contact placeholder — link the school WhatsApp number here.") }>
-            WhatsApp the school (placeholder)
-          </button>
+          <a href={`https://wa.me/${school.phoneRaw.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="btn bg-[#25D366] text-white hover:opacity-90">
+            WhatsApp the school
+          </a>
           <div>
             <Media label="Google Map — Gilgil Town location" ratio="aspect-[4/3]" />
             <p className="mt-2 text-[12px] text-mist-500">Map placeholder — embed the Google Maps pin when ready.</p>

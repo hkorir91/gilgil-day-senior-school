@@ -37,7 +37,7 @@ export function ProfileCard({
 }) {
   return (
     <article className="group border border-mist-200 bg-white transition hover:border-maroon-500 hover:shadow-lg">
-      <Avatar name={person.name} palette={palette} size={size} />
+      <Avatar name={person.name} src={person.photo} palette={palette} size={size} />
       <div className={compact ? "p-3.5" : "p-4"}>
         <h3 className={`font-display ${compact ? "text-sm" : "text-base"} font-semibold text-charcoal-900`}>{person.name}</h3>
         <p className={`mt-1 ${compact ? "text-[10.5px]" : "text-[11px]"} font-semibold uppercase tracking-[0.14em] text-maroon-700`}>
@@ -57,7 +57,7 @@ export function PrincipalMessageCard({ person }: { person: Person }) {
   return (
     <article className="grid gap-0 overflow-hidden border border-mist-200 bg-white md:grid-cols-[240px_1fr]">
       <div className="relative">
-        <Avatar name={person.name} palette="maroon" size="lg" ratio="aspect-square md:aspect-auto md:h-full" />
+        <Avatar name={person.name} src={person.photo} palette="maroon" size="lg" ratio="aspect-square md:aspect-auto md:h-full" />
         <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4">
           <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-maroon-100">Message from the Principal</p>
         </div>
@@ -71,7 +71,7 @@ export function PrincipalMessageCard({ person }: { person: Person }) {
         </blockquote>
         <div className="mt-5 flex items-center gap-3 border-t border-mist-200 pt-4">
           <div className="h-10 w-10">
-            <Avatar name={person.name} palette="maroon" size="sm" />
+            <Avatar name={person.name} src={person.photo} palette="maroon" size="sm" />
           </div>
           <div>
             <p className="font-display text-base font-semibold text-charcoal-900">{person.name}</p>
@@ -114,13 +114,13 @@ export function Notice({ children }: { children: React.ReactNode }) {
 }
 
 // KCSE performer card — grade badge + portrait + name.
-export function PerformerCard({ position, grade, name = "Learner name", note, destination }: {
-  position: string; grade: string; name?: string; note?: string; destination?: string;
+export function PerformerCard({ position, grade, name = "Learner name", note, destination, photo }: {
+  position: string; grade: string; name?: string; note?: string; destination?: string; photo?: string;
 }) {
   return (
     <article className="group relative overflow-hidden border border-mist-200 bg-white transition hover:border-maroon-500 hover:shadow-lg">
       <div className="relative">
-        <Avatar name={name} palette="maroon" size="lg" />
+        <Avatar name={name} src={photo} palette="maroon" size="lg" ratio="aspect-[4/5]" />
         <div className="absolute right-3 top-3 grid h-14 w-14 place-items-center bg-white shadow-md ring-2 ring-maroon-700">
           <span className="font-display text-xl font-bold text-maroon-700">{grade}</span>
         </div>

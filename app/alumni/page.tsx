@@ -28,7 +28,7 @@ export default function Alumni() {
             sub={kcse2025.summary}
             light
           />
-          <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-4">
+          <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
             {kcse2025.performers.map((p) => (
               <PerformerCard
                 key={p.position}
@@ -36,6 +36,7 @@ export default function Alumni() {
                 grade={p.grade}
                 note={p.note}
                 destination={p.destination}
+                photo={p.photo}
               />
             ))}
           </div>
@@ -129,9 +130,9 @@ export default function Alumni() {
           <div className="mt-10">
             <SectionHeading eyebrow="Alumni Gallery" title="Through the years" />
             <div className="grid grid-cols-3 gap-3">
-              <Media label="Alumni event" ratio="aspect-square" />
-              <Media label="Class reunion" ratio="aspect-square" />
-              <Media label="Mentorship day" ratio="aspect-square" />
+              <Media label="Alumni event" ratio="aspect-square" kind="assembly" />
+              <Media label="Class reunion" ratio="aspect-square" kind="book" />
+              <Media label="Mentorship day" ratio="aspect-square" kind="classroom" />
             </div>
           </div>
         </div>

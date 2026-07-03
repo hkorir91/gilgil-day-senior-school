@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
 import { SectionHeading, ProfileCard } from "@/components/Cards";
 import { Media } from "@/components/Placeholder";
-import { studentsCouncil } from "@/lib/data";
+import { studentsCouncil, sitePhotos } from "@/lib/data";
 
 export const metadata: Metadata = { title: "Students' Council" };
 
@@ -18,17 +18,17 @@ export default function StudentsCouncil() {
         <div>
           <SectionHeading eyebrow="From the School Captain" title="A word to fellow learners" />
           <blockquote className="rule-card font-display text-lg leading-relaxed">
-            “{studentsCouncil.captainMessage}”
+            &ldquo;{studentsCouncil.captainMessage}&rdquo;
             <footer className="mt-4 text-sm font-semibold not-italic">— School Captain, {new Date().getFullYear()}</footer>
           </blockquote>
         </div>
-        <Media label="Students' Council group photo" />
+        <Media label="Students' Council group photo" kind="assembly" src={sitePhotos.assembly} />
       </section>
       <section className="bg-mist-50 py-16 md:py-20">
         <div className="shell">
           <SectionHeading eyebrow="Council members" title="Serving the student body" />
           <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-6">
-            {studentsCouncil.members.map((m) => <ProfileCard key={m.role} person={m} />)}
+            {studentsCouncil.members.map((m) => <ProfileCard key={m.role} person={{ ...m, photo: sitePhotos.student }} />)}
           </div>
         </div>
       </section>

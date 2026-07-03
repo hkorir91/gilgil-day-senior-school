@@ -58,8 +58,8 @@ export default function About() {
           </div>
         </div>
         <div className="grid content-start gap-4">
-          <Media label="School compound" />
-          <Media label="Morning assembly" ratio="aspect-[16/8]" />
+          <Media label="School compound" kind="compound" />
+          <Media label="Morning assembly" ratio="aspect-[16/8]" kind="assembly" />
         </div>
       </section>
 
@@ -201,7 +201,7 @@ function Connector() {
   return <div className="mx-auto h-8 w-px bg-gradient-to-b from-maroon-500/70 to-white/10" aria-hidden />;
 }
 
-function TierDark({ tier, people }: { tier: string; people: { name: string; role: string; short?: string }[] }) {
+function TierDark({ tier, people }: { tier: string; people: { name: string; role: string; short?: string; photo?: string }[] }) {
   return (
     <div>
       <div className="mb-4 flex items-center justify-center gap-3">
@@ -212,8 +212,8 @@ function TierDark({ tier, people }: { tier: string; people: { name: string; role
       <div className={`mx-auto grid gap-4 ${people.length === 2 ? "max-w-2xl sm:grid-cols-2" : people.length === 3 ? "max-w-3xl sm:grid-cols-3" : "max-w-4xl sm:grid-cols-2 md:grid-cols-4"}`}>
         {people.map((p) => (
           <div key={p.name + p.role} className="border border-white/15 bg-white/[0.03] p-4 text-center transition hover:border-maroon-500 hover:bg-white/[0.06]">
-            <div className="mx-auto h-14 w-14 overflow-hidden">
-              <Avatar name={p.name} palette="maroon" size="sm" />
+            <div className="mx-auto h-16 w-16 overflow-hidden rounded-full ring-2 ring-white/10">
+              <Avatar name={p.name} src={p.photo} palette="maroon" size="sm" />
             </div>
             <p className="mt-3 font-display text-sm font-semibold leading-tight">{p.name}</p>
             <p className="mt-1 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-maroon-100">{p.short ?? p.role}</p>
