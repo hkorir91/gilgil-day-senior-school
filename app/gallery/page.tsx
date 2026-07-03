@@ -28,7 +28,19 @@ export default function Gallery() {
         <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {items.map((g) => (
             <figure key={g.title}>
-              <Media label={g.title} ratio="aspect-square" />
+              <Media
+                label={g.title}
+                ratio="aspect-square"
+                src={g.photo}
+                kind={
+                  g.filter === "School farm" || g.filter === "Agriculture" ? "field" :
+                  g.filter === "Assemblies" || g.filter === "Events" ? "assembly" :
+                  g.filter === "Labs" || g.filter === "STEM" ? "lab" :
+                  g.filter === "School compound" ? "compound" :
+                  g.filter === "Academics" || g.filter === "Social Sciences" ? "book" :
+                  "classroom"
+                }
+              />
               <figcaption className="mt-2 text-[12px] font-semibold text-charcoal-800">{g.title}</figcaption>
               <p className="text-[11px] uppercase tracking-wider text-mist-500">{g.filter}</p>
             </figure>
