@@ -8,7 +8,10 @@
 }
 
 html { scroll-behavior: smooth; }
-body { @apply bg-white text-charcoal-800 font-sans antialiased; }
+body {
+  @apply bg-white text-charcoal-800 font-sans antialiased;
+  font-feature-settings: "ss01", "ss02", "cv11";
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -26,7 +29,7 @@ body { @apply bg-white text-charcoal-800 font-sans antialiased; }
 .eyebrow-light { @apply text-maroon-100; }
 .eyebrow-light::before { @apply bg-maroon-100; }
 
-.rule-card { @apply relative border border-mist-200 bg-white p-6; }
+.rule-card { @apply relative border border-mist-200 bg-white p-6 transition; }
 .rule-card::before {
   content: "";
   @apply absolute left-0 top-5 bottom-5 w-[3px] bg-maroon-700;
@@ -38,6 +41,7 @@ body { @apply bg-white text-charcoal-800 font-sans antialiased; }
 .btn-maroon { @apply btn bg-maroon-700 text-white hover:bg-maroon-800; }
 .btn-outline { @apply btn border border-charcoal-800 text-charcoal-800 hover:bg-charcoal-800 hover:text-white; }
 .btn-ghost-light { @apply btn border border-white/40 text-white hover:bg-white hover:text-charcoal-900; }
+.btn-white { @apply btn bg-white text-charcoal-900 hover:bg-mist-100; }
 
 .input {
   @apply w-full border border-mist-300 bg-white px-4 py-3 text-sm outline-none focus:border-maroon-700 focus:ring-1 focus:ring-maroon-700;
@@ -49,3 +53,39 @@ body { @apply bg-white text-charcoal-800 font-sans antialiased; }
 a:focus-visible, button:focus-visible {
   @apply outline outline-2 outline-offset-2 outline-maroon-700;
 }
+
+/* ---------- Hero utilities ---------- */
+.hero-gradient {
+  background:
+    radial-gradient(1200px 500px at 80% -10%, rgba(110, 20, 35, 0.35), transparent 60%),
+    radial-gradient(900px 500px at -10% 100%, rgba(110, 20, 35, 0.28), transparent 60%),
+    linear-gradient(180deg, #1a1c1f 0%, #14161a 100%);
+}
+.hero-topo {
+  background-image:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.06) 0, transparent 60%),
+    radial-gradient(circle at 70% 80%, rgba(255,255,255,0.04) 0, transparent 60%);
+}
+
+/* ---------- Grade badges ---------- */
+.grade-badge {
+  @apply grid h-14 w-14 place-items-center bg-white shadow-lg ring-2 ring-maroon-700 font-display text-xl font-bold text-maroon-700;
+}
+
+/* ---------- Achievement bar (stats strip) ---------- */
+.stat-num {
+  @apply font-display text-4xl font-semibold leading-none md:text-5xl;
+  background: linear-gradient(180deg, #fff 0%, #d9dbdf 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Section dividers ---------- */
+.divider-slant {
+  clip-path: polygon(0 3rem, 100% 0, 100% 100%, 0 100%);
+}
+
+/* ---------- Fade-in on scroll (respects reduced motion) ---------- */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px);} to { opacity: 1; transform: none; } }
+.fade-up { animation: fadeUp .6s ease-out both; }
