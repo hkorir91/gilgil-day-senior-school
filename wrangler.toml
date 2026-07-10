@@ -1,0 +1,14 @@
+name = "gilgil-day-senior-school"
+compatibility_date = "2026-01-01"
+pages_build_output_dir = "out"
+
+# D1 database binding — replace database_id with yours after `wrangler d1 create gdss-db`
+[[d1_databases]]
+binding = "DB"
+database_name = "gdss-db"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+
+# R2 bucket for photos, PDFs, logo — after `wrangler r2 bucket create gdss-media`
+[[r2_buckets]]
+binding = "MEDIA"
+bucket_name = "gdss-media"
