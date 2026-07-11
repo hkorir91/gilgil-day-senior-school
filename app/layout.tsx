@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Chatbot from "@/components/Chatbot";
+import { ContentProvider } from "@/lib/content";
 import { school } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -25,10 +26,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <Header />
-        <main>{children}</main>
-        <Footer />
-        <Chatbot />
+        <ContentProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+          <Chatbot />
+        </ContentProvider>
       </body>
     </html>
   );
