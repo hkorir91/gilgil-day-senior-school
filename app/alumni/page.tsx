@@ -5,8 +5,10 @@ import PageHeader from "@/components/PageHeader";
 import { SectionHeading, PerformerCard, Notice } from "@/components/Cards";
 import { Media, Avatar } from "@/components/Placeholder";
 import { kcse2025, kcseHistory } from "@/lib/data";
+import { useContent } from "@/lib/content";
 
 export default function Alumni() {
+  const { achievers, settings } = useContent();
   const [sent, setSent] = useState(false);
   const [activeYear, setActiveYear] = useState(kcseHistory[0].year);
   const current = kcseHistory.find((k) => k.year === activeYear) ?? kcseHistory[0];
@@ -20,25 +22,81 @@ export default function Alumni() {
       />
 
       {/* ============ KCSE 2025 TOP PERFORMERS ============ */}
-      <section className="bg-charcoal-900 py-16 text-white md:py-20">
-        <div className="shell">
-          <SectionHeading
-            eyebrow={kcse2025.headline}
-            title="Congratulations to the Class of 2025."
-            sub={kcse2025.summary}
-            light
-          />
-          <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
-            {kcse2025.performers.map((p) => (
-              <PerformerCard
-                key={p.position}
-                position={p.position}
-                grade={p.grade}
-                note={p.note}
-                destination={p.destination}
-                photo={p.photo}
-              />
-            ))}
+      <section className="relative overflow-hidden py-16 md:py-24">
+        {/* Colourful gradient backdrop */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-maroon-50 via-amber-50 to-emerald-50" aria-hidden />
+        <div className="pointer-events-none absolute -left-40 top-10 h-96 w-96 rounded-full bg-amber-200/40 blur-3xl" aria-hidden />
+        <div className="pointer-events-none absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-emerald-200/40 blur-3xl" aria-hidden />
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose-200/30 blur-3xl" aria-hidden />
+
+        <div className="shell relative">
+          {/* Colourful header */}
+          <div className="mb-10 text-center">
+            <p className="inline-block bg-gradient-to-r from-maroon-700 via-amber-600 to-emerald-700 bg-clip-text text-[11px] font-semibold uppercase tracking-[0.28em] text-transparent">
+              {settings.achievers_headline || kcse2025.headline}
+            </p>
+            <h2 className="mt-4 font-display text-3xl font-semibold leading-tight text-charcoal-900 md:text-5xl">
+              Congratulations to the <span className="bg-gradient-to-r from-maroon-700 to-amber-600 bg-clip-text text-transparent">Class of 2025</span>.
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-charcoal-700">
+              {settings.achievers_summary || kcse2025.summary}
+            </p>
+          </div>
+
+          {/* Stats strip */}
+          <div className="mx-auto mb-14 grid max-w-3xl grid-cols-3 gap-4">
+            {(["B", "B-", "C+"] as const).map((band) => {
+              const count = achievers.filter((p) => (p.grade || "").trim().toUpperCase() === band).length;
+              const cls = band === "B" ? "from-yellow-500 to-amber-500" : band === "B-" ? "from-emerald-600 to-emerald-400" : "from-sky-600 to-sky-400";
+              return (
+                <div key={band} className="border border-white/60 bg-white/70 p-5 text-center shadow-sm backdrop-blur">
+                  <p className={`bg-gradient-to-r ${cls} bg-clip-text font-display text-4xl font-bold text-transparent`}>{count}</p>
+                  <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-charcoal-700">Grade {band}</p>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Grade-grouped grids */}
+          {(() => {
+            const groups: { band: string; label: string; ring: string; heading: string }[] = [
+              { band: "B",  label: "Grade B — Top Achievers",        ring: "border-l-4 border-yellow-500",  heading: "text-yellow-800" },
+              { band: "B-", label: "Grade B- — University-Bound",    ring: "border-l-4 border-emerald-500", heading: "text-emerald-800" },
+              { band: "C+", label: "Grade C+ — University Threshold",ring: "border-l-4 border-sky-500",     heading: "text-sky-800" },
+            ];
+            return (
+              <div className="space-y-12">
+                {groups.map((grp) => {
+                  const list = achievers.filter((p) => (p.grade || "").trim().toUpperCase() === grp.band);
+                  if (list.length === 0) return null;
+                  return (
+                    <div key={grp.band}>
+                      <div className={`mb-5 flex items-baseline gap-3 pl-4 ${grp.ring}`}>
+                        <h3 className={`font-display text-xl font-semibold md:text-2xl ${grp.heading}`}>{grp.label}</h3>
+                        <span className="text-[13px] font-semibold text-charcoal-600">({list.length})</span>
+                      </div>
+                      <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                        {list.map((p) => (
+                          <PerformerCard
+                            key={p.position}
+                            position={p.position}
+                            grade={p.grade}
+                            note={p.note || undefined}
+                            destination={p.destination || undefined}
+                            photo={p.photo || undefined}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })()}
+
+          {/* Photo upload hint */}
+          <div className="mx-auto mt-14 max-w-3xl border border-dashed border-maroon-300 bg-white/80 p-5 text-center text-[13px] leading-relaxed text-charcoal-700 backdrop-blur">
+            📸 <strong>Adding learner photos:</strong> sign in to the Admin dashboard → <strong>List of Achievers</strong> → click <strong>Edit</strong> on a learner → <strong>Upload photo</strong>. The portrait replaces the initials placeholder instantly.
           </div>
         </div>
       </section>
