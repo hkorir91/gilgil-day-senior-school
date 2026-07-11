@@ -185,6 +185,7 @@ export const pathways: Pathway[] = [
 ];
 
 // ---------- Departments (exactly six) ----------
+export type DepartmentTeacher = { name: string; subjects: string[] };
 export type Department = {
   slug: string;
   name: string;
@@ -192,13 +193,96 @@ export type Department = {
   head: string;
   items: string[];
   itemsLabel: string;
+  teachers?: DepartmentTeacher[];
 };
 
 export const departments: Department[] = [
-  { slug: "pure-sciences", name: "Pure Sciences", overview: "Mathematics and the core sciences within the STEM pathway.", head: "Wainaina J. — Head of Pure Sciences", itemsLabel: "Subjects", items: ["Mathematics", "Biology", "Chemistry", "Physics"] },
-  { slug: "applied-sciences", name: "Applied Sciences", overview: "Applied and technical subjects within the STEM pathway.", head: "Ochieng J. — Head of Applied Sciences", itemsLabel: "Subjects", items: ["Agriculture", "Computer Studies"] },
-  { slug: "languages", name: "Languages", overview: "Language instruction and literacy within the Social Sciences pathway.", head: "Macharia Jane — Head of Languages", itemsLabel: "Subjects", items: ["English", "Kiswahili"] },
-  { slug: "humanities-business", name: "Humanities and Business", overview: "Humanities and business subjects within the Social Sciences pathway.", head: "Koech Richard — Head of Humanities & Business", itemsLabel: "Subjects", items: ["Geography", "History", "CRE", "Business Studies"] },
+  {
+    slug: "pure-sciences", name: "Pure Sciences",
+    overview: "Mathematics and the core sciences within the STEM pathway.",
+    head: "Wainaina J. — Head of Pure Sciences",
+    itemsLabel: "Subjects", items: ["Mathematics", "Biology", "Chemistry", "Physics"],
+    // Teachers with any of: Maths, Biology, Chemistry, Physics
+    teachers: [
+      { name: "Mutinda Beatrice",  subjects: ["Maths", "Business"] },
+      { name: "Oduol Bivan",       subjects: ["Maths", "Chemistry"] },
+      { name: "Ndirangu David",    subjects: ["Maths", "Chemistry"] },
+      { name: "Asiago David",      subjects: ["Agriculture", "Biology"] },
+      { name: "Jeremiah Getange",  subjects: ["Maths", "Chemistry"] },
+      { name: "Koech Gilbert",     subjects: ["Maths", "Physics"] },
+      { name: "Bett Griffins",     subjects: ["Geography", "Biology"] },
+      { name: "Ochieng Kevin",     subjects: ["Computer", "Maths"] },
+      { name: "Wainaina Margaret", subjects: ["Agriculture", "Biology"] },
+      { name: "Maina Mary",        subjects: ["Business", "Maths"] },
+      { name: "Kitur Sharon",      subjects: ["Biology", "Agriculture"] },
+      { name: "Gekonge Silvanus",  subjects: ["Maths", "Physics"] },
+      { name: "Mwangi Stephen",    subjects: ["Maths", "Chemistry"] },
+      { name: "Kinyua Tirus",      subjects: ["Maths", "Physics"] },
+      { name: "Onyango Wickliffe", subjects: ["Maths", "Business"] },
+    ],
+  },
+  {
+    slug: "applied-sciences", name: "Applied Sciences",
+    overview: "Applied and technical subjects within the STEM pathway.",
+    head: "Ochieng J. — Head of Applied Sciences",
+    itemsLabel: "Subjects", items: ["Agriculture", "Computer Studies"],
+    // Teachers with any of: Agriculture, Computer
+    teachers: [
+      { name: "Asiago David",      subjects: ["Agriculture", "Biology"] },
+      { name: "Ochieng Kevin",     subjects: ["Computer", "Maths"] },
+      { name: "Wainaina Margaret", subjects: ["Agriculture", "Biology"] },
+      { name: "Kitur Sharon",      subjects: ["Biology", "Agriculture"] },
+    ],
+  },
+  {
+    slug: "languages", name: "Languages",
+    overview: "Language instruction and literacy within the Social Sciences pathway.",
+    head: "Macharia Jane — Head of Languages",
+    itemsLabel: "Subjects", items: ["English", "Kiswahili", "Literature"],
+    // Teachers with any of: English, Kiswahili, Literature
+    teachers: [
+      { name: "Mureithi Alex",     subjects: ["English", "Literature"] },
+      { name: "Muli Annah",        subjects: ["Kiswahili", "CRE"] },
+      { name: "Oteki Diana",       subjects: ["History", "Kiswahili"] },
+      { name: "Macharia Jane",     subjects: ["English", "Literature"] },
+      { name: "Muthoni Jerusha",   subjects: ["Kiswahili", "History"] },
+      { name: "Robert Kibet",      subjects: ["Kiswahili", "CRE"] },
+      { name: "Njeri Margaret",    subjects: ["CRE", "Kiswahili"] },
+      { name: "Juliet Nelly",      subjects: ["English", "Literature"] },
+      { name: "Teresiah Njuguna",  subjects: ["Kiswahili", "History"] },
+      { name: "Kemunto Onduso",    subjects: ["Kiswahili", "CRE"] },
+      { name: "Mwaura Peter",      subjects: ["Kiswahili", "Geography"] },
+      { name: "Mburu Rahab",       subjects: ["English", "Literature"] },
+      { name: "Morara Sylvanus",   subjects: ["English", "Literature"] },
+    ],
+  },
+  {
+    slug: "humanities-business", name: "Humanities and Business",
+    overview: "Humanities and business subjects within the Social Sciences pathway.",
+    head: "Koech Richard — Head of Humanities & Business",
+    itemsLabel: "Subjects", items: ["Geography", "History", "CRE", "Business Studies"],
+    // Teachers with any of: Geography, History, CRE, Business (or Economics)
+    teachers: [
+      { name: "Willy Alicious",    subjects: ["Geography", "CRE"] },
+      { name: "Muli Annah",        subjects: ["Kiswahili", "CRE"] },
+      { name: "Mutinda Beatrice",  subjects: ["Maths", "Business"] },
+      { name: "Oteki Diana",       subjects: ["History", "Kiswahili"] },
+      { name: "Muriithi Grace",    subjects: ["Business", "Economics"] },
+      { name: "Bett Griffins",     subjects: ["Geography", "Biology"] },
+      { name: "Korir Hillary",     subjects: ["Geography", "CRE"] },
+      { name: "Muthoni Jerusha",   subjects: ["Kiswahili", "History"] },
+      { name: "Robert Kibet",      subjects: ["Kiswahili", "CRE"] },
+      { name: "Richard Koech",     subjects: ["Geography", "CRE"] },
+      { name: "Njeri Margaret",    subjects: ["CRE", "Kiswahili"] },
+      { name: "Maina Mary",        subjects: ["Business", "Maths"] },
+      { name: "Masinde Mercy",     subjects: ["History", "CRE"] },
+      { name: "David Muhia",       subjects: ["Geography", "Business"] },
+      { name: "Teresiah Njuguna",  subjects: ["Kiswahili", "History"] },
+      { name: "Kemunto Onduso",    subjects: ["Kiswahili", "CRE"] },
+      { name: "Mwaura Peter",      subjects: ["Kiswahili", "Geography"] },
+      { name: "Onyango Wickliffe", subjects: ["Maths", "Business"] },
+    ],
+  },
   { slug: "exams-assessment-careers", name: "Exams / Assessment / Careers", overview: "Led by the Dean of Academics / Director of Studies. Coordinates exams, internal assessment, academic progress tracking, results and career guidance across both pathways.", head: "Tirus Kinyua — Dean of Academics / DoS", itemsLabel: "Functions", items: ["Exams office", "Assessment notices", "Exam timetables", "Results uploads", "Academic reports", "Career guidance", "Academic progress support"] },
   { slug: "contemporary-issues", name: "Contemporary Issues", overview: "Non-academic departments, activities, clubs and societies — the co-curricular life of the school. Head of Games: Silvanus Gekonge.", head: "Njuguna J. — Head of Contemporary Issues", itemsLabel: "Areas", items: ["Games", "Guidance and Counselling", "Clubs", "Societies"] },
 ];
@@ -323,22 +407,26 @@ export const downloads: DownloadItem[] = [
 ];
 
 // ---------- Gallery ----------
-export const galleryFilters = ["Academics", "STEM", "Social Sciences", "Clubs", "Societies", "Sports", "Assemblies", "Labs", "Events", "Staff", "School compound"];
+export const galleryFilters = ["Academics", "STEM", "Social Sciences", "Clubs", "Societies", "Sports", "Assemblies", "Labs", "Events", "Staff", "School compound", "School farm", "Agriculture"];
 
-export type GalleryItem = { title: string; filter: string };
+export type GalleryItem = { title: string; filter: string; photo?: string };
 export const gallery: GalleryItem[] = [
-  { title: "Morning assembly", filter: "Assemblies" },
-  { title: "Chemistry practical session", filter: "Labs" },
-  { title: "Grade 10 STEM class", filter: "STEM" },
-  { title: "Debate club session", filter: "Clubs" },
-  { title: "School compound — main block", filter: "School compound" },
-  { title: "Ball games afternoon", filter: "Sports" },
-  { title: "Geography fieldwork", filter: "Social Sciences" },
-  { title: "Staff group portrait", filter: "Staff" },
-  { title: "Music festival rehearsal", filter: "Clubs" },
-  { title: "CU Sunday service", filter: "Societies" },
-  { title: "Academic awards day", filter: "Events" },
-  { title: "Library study session", filter: "Academics" },
+  { title: "Morning assembly",           filter: "Assemblies",       photo: "/photos/students.jpg" },
+  { title: "Chemistry practical session",filter: "Labs",             photo: "/photos/stem.jpg" },
+  { title: "Grade 10 STEM class",        filter: "STEM",             photo: "/photos/stem.jpg" },
+  { title: "Debate club session",        filter: "Clubs" },
+  { title: "School compound — main block", filter: "School compound", photo: "/photos/photo1.jpg" },
+  { title: "School compound — landscape",  filter: "School compound", photo: "/photos/photo2.jpg" },
+  { title: "Ball games afternoon",       filter: "Sports" },
+  { title: "Geography fieldwork",        filter: "Social Sciences",  photo: "/photos/social.jpg" },
+  { title: "Staff group portrait",       filter: "Staff" },
+  { title: "Music festival rehearsal",   filter: "Clubs" },
+  { title: "CU Sunday service",          filter: "Societies" },
+  { title: "Academic awards day",        filter: "Events" },
+  { title: "Library study session",      filter: "Academics" },
+  { title: "School AGM",                 filter: "Events",           photo: "/photos/photo4.jpg" },
+  { title: "School Farm",                filter: "School farm" },
+  { title: "Agriculture Project",        filter: "Agriculture" },
 ];
 
 // ---------- Site photos (single source of truth for image swaps) ----------
@@ -360,19 +448,36 @@ export const sitePhotos = {
 export type Performer = { position: string; grade: string; note?: string; destination?: string; photo?: string };
 
 export const kcse2025 = {
-  headline: "KCSE 2025 — University-Bound Class",
-  summary: "Congratulations to the 2025 candidate class and their teachers. Grades from B+ down to C+ represent the university transition threshold under KUCCPS. Portraits will be replaced with each learner's individual photo as the school uploads them.",
+  headline: "KCSE 2025 — Our University-Bound Class",
+  summary: "Congratulations to the 2025 candidate class and their teachers. These 24 learners scored C+ and above — the KUCCPS threshold for direct university placement. Portraits are updated from the Admin dashboard as the school uploads each learner's photo.",
   performers: [
-    { position: "Learner 1",  grade: "B+", destination: "Bachelor of Education — pending placement", photo: sitePhotos.student },
-    { position: "Learner 2",  grade: "B+", destination: "Bachelor of Commerce — pending placement",  photo: sitePhotos.student },
-    { position: "Learner 3",  grade: "B",  destination: "Bachelor of Science — pending placement",   photo: sitePhotos.student },
-    { position: "Learner 4",  grade: "B",  destination: "Bachelor of Arts — pending placement",      photo: sitePhotos.student },
-    { position: "Learner 5",  grade: "B",  destination: "Agriculture — pending placement",           photo: sitePhotos.student },
-    { position: "Learner 6",  grade: "B-", destination: "Bachelor of Education — pending placement", photo: sitePhotos.student },
-    { position: "Learner 7",  grade: "B-", destination: "Community Health — pending placement",      photo: sitePhotos.student },
-    { position: "Learner 8",  grade: "C+", destination: "Diploma pathway — pending placement",       photo: sitePhotos.student },
-    { position: "Learner 9",  grade: "C+", destination: "Diploma pathway — pending placement",       photo: sitePhotos.student },
-    { position: "Learner 10", grade: "C+", destination: "Diploma pathway — pending placement",       photo: sitePhotos.student },
+    // ---- B (4) ----
+    { position: "Lazaro Brian Suku",         grade: "B",  destination: "University pathway — pending KUCCPS placement" },
+    { position: "Wangare Gichungu Samuel",   grade: "B",  destination: "University pathway — pending KUCCPS placement" },
+    { position: "Chege Naomi Nyambura",      grade: "B",  destination: "University pathway — pending KUCCPS placement" },
+    { position: "Waithera Kelvin Mwaniki",   grade: "B",  destination: "University pathway — pending KUCCPS placement" },
+    // ---- B- (12) ----
+    { position: "Faith Wanjiku Macharia",    grade: "B-", destination: "University pathway — pending KUCCPS placement" },
+    { position: "Waithera Hellen Wambui",    grade: "B-", destination: "University pathway — pending KUCCPS placement" },
+    { position: "Anyango Abdi Suleiman",     grade: "B-", destination: "University pathway — pending KUCCPS placement" },
+    { position: "Wakanyi Elizabeth Ruhiu",   grade: "B-", destination: "University pathway — pending KUCCPS placement" },
+    { position: "Wakonyu Leskar Gakou",      grade: "B-", destination: "University pathway — pending KUCCPS placement" },
+    { position: "Wangari Mary Wanjiku",      grade: "B-", destination: "University pathway — pending KUCCPS placement" },
+    { position: "Wambui Francis Maigua",     grade: "B-", destination: "University pathway — pending KUCCPS placement" },
+    { position: "Njenga Josphat Kimani",     grade: "B-", destination: "University pathway — pending KUCCPS placement" },
+    { position: "Kienje Purity Wangare",     grade: "B-", destination: "University pathway — pending KUCCPS placement" },
+    { position: "Macharia Maryann Njeri",    grade: "B-", destination: "University pathway — pending KUCCPS placement" },
+    { position: "Nanjala Evon Naliaka",      grade: "B-", destination: "University pathway — pending KUCCPS placement" },
+    { position: "Kamau Joseph Karanja",      grade: "B-", destination: "University pathway — pending KUCCPS placement" },
+    // ---- C+ (8) ----
+    { position: "Maingi Peter Kariri",       grade: "C+", destination: "University pathway — pending KUCCPS placement" },
+    { position: "Wambui Francis Gatehi",     grade: "C+", destination: "University pathway — pending KUCCPS placement" },
+    { position: "Ryan Murimi Gichira",       grade: "C+", destination: "University pathway — pending KUCCPS placement" },
+    { position: "Ondieki Peacenate Nyaboke", grade: "C+", destination: "University pathway — pending KUCCPS placement" },
+    { position: "Macharia Dennis Mwangi",    grade: "C+", destination: "University pathway — pending KUCCPS placement" },
+    { position: "Rotich Edwin Kimutai",      grade: "C+", destination: "University pathway — pending KUCCPS placement" },
+    { position: "Kimani Esther Watiri",      grade: "C+", destination: "University pathway — pending KUCCPS placement" },
+    { position: "Gitonga Junior Njoroge",    grade: "C+", destination: "University pathway — pending KUCCPS placement" },
   ] as Performer[],
 };
 
@@ -472,13 +577,47 @@ export const kcseHistory: KcseYear[] = [
 export const studentsCouncil = {
   captainMessage:
     "As School Captain, I speak on behalf of every Grade 10, Form 3 and Form 4 learner at Gilgil Day. We take pride in our school, our teachers and each other. We show up on time, we work hard, we play hard and we look after one another. Knowledge is Power — and every day, we prove it.",
+  // Top tier: School Captain + Deputies (Boy & Girl)
+  executive: [
+    { name: "Name — placeholder", role: "School Captain" },
+    { name: "Name — placeholder", role: "Deputy School Captain — Boy" },
+    { name: "Name — placeholder", role: "Deputy School Captain — Girl" },
+  ],
+  // Area councils: each has a Captain + Deputy
+  areas: [
+    "Academics",
+    "Environment",
+    "Furniture",
+    "Laboratory",
+    "First Responders",
+    "Dining",
+    "Games",
+    "Computer Lab",
+    "Peer Counselling",
+  ],
+  // Flat members list (kept for backward compatibility / DB fallback)
   members: [
-    { name: "Student Captain — placeholder", role: "School Captain" },
-    { name: "Deputy — placeholder", role: "Deputy Captain — Girls" },
-    { name: "Deputy — placeholder", role: "Deputy Captain — Boys" },
-    { name: "Academics — placeholder", role: "Academics Captain" },
-    { name: "Games — placeholder", role: "Games Captain" },
-    { name: "Environment — placeholder", role: "Environment Captain" },
+    { name: "Name — placeholder", role: "School Captain" },
+    { name: "Name — placeholder", role: "Deputy School Captain — Boy" },
+    { name: "Name — placeholder", role: "Deputy School Captain — Girl" },
+    { name: "Name — placeholder", role: "Academics Captain" },
+    { name: "Name — placeholder", role: "Academics Deputy" },
+    { name: "Name — placeholder", role: "Environment Captain" },
+    { name: "Name — placeholder", role: "Environment Deputy" },
+    { name: "Name — placeholder", role: "Furniture Captain" },
+    { name: "Name — placeholder", role: "Furniture Deputy" },
+    { name: "Name — placeholder", role: "Laboratory Captain" },
+    { name: "Name — placeholder", role: "Laboratory Deputy" },
+    { name: "Name — placeholder", role: "First Responders Captain" },
+    { name: "Name — placeholder", role: "First Responders Deputy" },
+    { name: "Name — placeholder", role: "Dining Captain" },
+    { name: "Name — placeholder", role: "Dining Deputy" },
+    { name: "Name — placeholder", role: "Games Captain" },
+    { name: "Name — placeholder", role: "Games Deputy" },
+    { name: "Name — placeholder", role: "Computer Lab Captain" },
+    { name: "Name — placeholder", role: "Computer Lab Deputy" },
+    { name: "Name — placeholder", role: "Peer Counselling Captain" },
+    { name: "Name — placeholder", role: "Peer Counselling Deputy" },
   ],
 };
 
