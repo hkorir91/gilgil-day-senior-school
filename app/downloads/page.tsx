@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import PageHeader from "@/components/PageHeader";
-import { downloads, downloadCategories } from "@/lib/data";
+import { downloadCategories } from "@/lib/data";
+import { useContent } from "@/lib/content";
 
 export default function Downloads() {
+  const { downloads } = useContent();
   const [cat, setCat] = useState<string | null>(null);
   const items = cat ? downloads.filter((d) => d.category === cat) : downloads;
 
@@ -33,8 +35,10 @@ export default function Downloads() {
               </div>
               {d.restricted ? (
                 <a href="/portals/parent" className="btn-outline !py-2 text-xs">View in Parent Portal</a>
+              ) : d.url ? (
+                <a href={`${d.url}?dl=1`} className="btn-maroon !py-2 text-xs">Download</a>
               ) : (
-                <button onClick={() => alert("Demo file. Real documents are attached from the admin dashboard.")} className="btn-maroon !py-2 text-xs">Download</button>
+                <button onClick={() => alert("This document has not been attached yet. It will be available once uploaded from the admin dashboard.")} className="btn-maroon !py-2 text-xs">Download</button>
               )}
             </li>
           ))}
