@@ -6,7 +6,7 @@ pages_build_output_dir = "out"
 [[d1_databases]]
 binding = "DB"
 database_name = "gdss-db"
-database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+database_id = "764cc21d-72f8-4fb7-bb7d-363d44d25e9e"
 
 # R2 bucket for photos, PDFs, logo — after `wrangler r2 bucket create gdss-media`
 [[r2_buckets]]
