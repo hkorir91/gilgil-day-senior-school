@@ -113,25 +113,43 @@ export function Notice({ children }: { children: React.ReactNode }) {
   );
 }
 
-// KCSE performer card — grade badge + portrait + name.
-export function PerformerCard({ position, grade, name = "Learner name", note, destination, photo }: {
+// KCSE performer card — grade-tinted portrait, colourful badge.
+// The `position` field carries the learner's name (from Alumni data / DB).
+export function PerformerCard({ position, grade, name, note, destination, photo }: {
   position: string; grade: string; name?: string; note?: string; destination?: string; photo?: string;
 }) {
+  const learnerName = name || position;
+  // Grade-based colour scheme — palette maps grade band to Tailwind classes.
+  const g = (grade || "").trim().toUpperCase();
+  const palette =
+    g.startsWith("A") ? { ring: "ring-rose-500",   badgeBg: "bg-rose-500",    badgeText: "text-white",     bar: "from-rose-600 to-rose-400",     avatar: "maroon" as const,   accent: "text-rose-600"   } :
+    g.startsWith("B+")? { ring: "ring-amber-500",  badgeBg: "bg-amber-500",   badgeText: "text-white",     bar: "from-amber-600 to-amber-400",   avatar: "maroon" as const,   accent: "text-amber-700"  } :
+    g === "B"         ? { ring: "ring-yellow-500", badgeBg: "bg-yellow-400",  badgeText: "text-yellow-950",bar: "from-yellow-600 to-yellow-300", avatar: "maroon" as const,   accent: "text-yellow-800" } :
+    g === "B-"        ? { ring: "ring-emerald-500",badgeBg: "bg-emerald-500", badgeText: "text-white",     bar: "from-emerald-700 to-emerald-400", avatar: "green" as const,  accent: "text-emerald-700"} :
+    g === "C+"        ? { ring: "ring-sky-500",    badgeBg: "bg-sky-500",     badgeText: "text-white",     bar: "from-sky-700 to-sky-400",       avatar: "charcoal" as const, accent: "text-sky-700"    } :
+                        { ring: "ring-maroon-700", badgeBg: "bg-maroon-700",  badgeText: "text-white",     bar: "from-maroon-800 to-maroon-500", avatar: "maroon" as const,   accent: "text-maroon-700" };
+
   return (
-    <article className="group relative overflow-hidden border border-mist-200 bg-white transition hover:border-maroon-500 hover:shadow-lg">
+    <article className={`group relative overflow-hidden border-2 border-transparent bg-white shadow-sm ring-1 ${palette.ring} transition hover:-translate-y-0.5 hover:shadow-xl`}>
       <div className="relative">
-        <Avatar name={name} src={photo} palette="maroon" size="lg" ratio="aspect-[4/5]" />
-        <div className="absolute right-3 top-3 grid h-14 w-14 place-items-center bg-white shadow-md ring-2 ring-maroon-700">
-          <span className="font-display text-xl font-bold text-maroon-700">{grade}</span>
+        <Avatar name={learnerName} src={photo} palette={palette.avatar} size="lg" ratio="aspect-[4/5]" />
+        <div className={`absolute right-3 top-3 grid h-14 w-14 place-items-center rounded-full shadow-lg ring-2 ring-white ${palette.badgeBg}`}>
+          <span className={`font-display text-xl font-bold ${palette.badgeText}`}>{grade}</span>
         </div>
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-3">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-maroon-100">{position}</p>
-          <p className="mt-1 font-display text-sm font-semibold text-white">{name}</p>
+        {!photo && (
+          <div className="absolute left-3 top-3 rounded bg-white/90 px-2 py-1 text-[9px] font-semibold uppercase tracking-wider text-charcoal-700 shadow-sm">
+            Photo pending
+          </div>
+        )}
+        <div className={`absolute inset-x-0 bottom-0 h-1.5 bg-gradient-to-r ${palette.bar}`} />
+        <div className="absolute inset-x-0 bottom-1.5 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-3">
+          <p className="font-display text-sm font-semibold leading-tight text-white">{learnerName}</p>
         </div>
       </div>
       <div className="p-4">
-        {note && <p className="text-xs font-semibold uppercase tracking-wider text-charcoal-700">{note}</p>}
-        {destination && <p className="mt-1 text-[13px] text-mist-600">{destination}</p>}
+        <p className={`text-[10px] font-semibold uppercase tracking-[0.18em] ${palette.accent}`}>KCSE {g} · University-bound</p>
+        {note && <p className="mt-1.5 text-xs font-semibold uppercase tracking-wider text-charcoal-700">{note}</p>}
+        {destination && <p className="mt-1 text-[13px] leading-relaxed text-mist-600">{destination}</p>}
       </div>
     </article>
   );
