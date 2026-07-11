@@ -1,4 +1,4 @@
-import Dashboard from "@/components/portal/Dashboard";
+import AdminPanel from "@/components/admin/AdminPanel";
 export default function Page() {
-  return <Dashboard role="admin" />;
+  return <AdminPanel />;
 }
