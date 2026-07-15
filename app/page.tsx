@@ -1,4 +1,4 @@
-"use client";
+"use client";G
 
 import Link from "next/link";
 import { Media, Avatar } from "@/components/Placeholder";
