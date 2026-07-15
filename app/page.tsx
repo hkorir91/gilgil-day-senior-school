@@ -96,7 +96,10 @@ const PATHWAY_STYLES: Record<string, { bar: string; text: string; button: string
 // Home page
 // ============================================================
 export default function Home() {
-  const { news } = useContent();
+  const { news, peopleBySection } = useContent();
+  const dbPrincipal = peopleBySection?.principal?.[0];
+  const principalPhoto = dbPrincipal?.photo || sitePhotos.principal;
+  const principalName = dbPrincipal?.name || "Mr. David Joseph Muhia";
   const latest = news.slice(0, 3);
   const upcomingEvents = news.slice(0, 6);
 
@@ -155,7 +158,7 @@ export default function Home() {
           <div className="relative">
             <div className="absolute -left-3 -top-3 h-full w-full bg-maroon-700/10" aria-hidden />
             <div className="relative border-4 border-white shadow-xl">
-              <Media label="Principal David Muhia" ratio="aspect-[4/5]" src={sitePhotos.principal} />
+              <Media label={`Principal ${principalName}`} ratio="aspect-[4/5]" src={principalPhoto} />
             </div>
           </div>
 
@@ -169,7 +172,7 @@ export default function Home() {
               Our dedicated staff, supportive community and conducive environment ensure that every learner discovers their potential and thrives.
             </p>
             <div className="mt-6">
-              <p className="font-display text-lg font-semibold italic text-maroon-700">Mr. David Joseph Muhia</p>
+              <p className="font-display text-lg font-semibold italic text-maroon-700">{principalName}</p>
               <p className="text-xs uppercase tracking-wider text-mist-600">Principal</p>
             </div>
             <Link href="/about" className="mt-6 inline-flex items-center gap-2 bg-emerald-600 px-5 py-2.5 text-[11px] font-semibold uppercase tracking-wide text-white hover:bg-emerald-700">
