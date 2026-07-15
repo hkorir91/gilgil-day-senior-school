@@ -53,7 +53,6 @@ const MAIN_NAV: NavItem[] = [
     children: [
       { href: "/students-council", label: "Students' Council" },
       { href: "/alumni", label: "KCSE 2025 Achievers" },
-      { href: "/portals/parent", label: "Parent Portal" },
     ],
   },
   { href: "/news", label: "News" },
@@ -86,6 +85,9 @@ export default function Header() {
             <span className="hidden lg:flex items-center gap-1.5"><span className="text-amber-400">{Icon.clock}</span> Mon–Fri · 8:00 AM–5:00 PM</span>
           </div>
           <div className="flex items-center gap-3">
+            <Link href="/portals/parent" className="hidden sm:inline-block whitespace-nowrap hover:text-white">Parent Portal</Link>
+            <Link href="/portals/admin" className="hidden sm:inline-block whitespace-nowrap hover:text-white">Admin</Link>
+            <span className="hidden sm:inline-block h-3 w-px bg-white/20" aria-hidden />
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-sky-400 hover:text-white">{Icon.fb}</a>
             <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="text-red-500 hover:text-white">{Icon.yt}</a>
             <a href="https://wa.me/254716851146" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="text-emerald-400 hover:text-white">{Icon.wa}</a>
@@ -178,6 +180,12 @@ export default function Header() {
               </Link>
               <Link href="/portals/staff" onClick={() => setOpen(false)} className="bg-sky-800 px-3 py-2.5 text-center text-[11px] font-semibold uppercase tracking-wide text-white">
                 Staff Portal
+              </Link>
+              <Link href="/portals/parent" onClick={() => setOpen(false)} className="bg-amber-500 px-3 py-2.5 text-center text-[11px] font-semibold uppercase tracking-wide text-white">
+                Parent Portal
+              </Link>
+              <Link href="/portals/admin" onClick={() => setOpen(false)} className="border border-charcoal-800 px-3 py-2.5 text-center text-[11px] font-semibold uppercase tracking-wide text-charcoal-800">
+                Admin Login
               </Link>
             </div>
           </nav>
