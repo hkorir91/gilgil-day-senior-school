@@ -26,12 +26,12 @@ const Icon = {
 // Simpler flat nav for the top bar
 const MAIN_NAV = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About Us" },
+  { href: "/about", label: "About" },
   { href: "/academics", label: "Academics" },
   { href: "/admissions", label: "Admissions" },
   { href: "/departments", label: "Departments" },
   { href: "/staff", label: "Staff" },
-  { href: "/news", label: "News & Events" },
+  { href: "/news", label: "News" },
   { href: "/gallery", label: "Gallery" },
   { href: "/downloads", label: "Downloads" },
   { href: "/contact", label: "Contact" },
@@ -69,7 +69,7 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`px-2.5 py-2 text-[12px] font-semibold uppercase tracking-wide hover:text-maroon-700 ${
+                className={`whitespace-nowrap px-2.5 py-2 text-[12px] font-semibold uppercase tracking-wide hover:text-maroon-700 ${
                   pathname === item.href ? "text-maroon-700 border-b-2 border-maroon-700" : "text-charcoal-800"
                 }`}
               >
@@ -77,12 +77,12 @@ export default function Header() {
               </Link>
             ))}
           </nav>
-          <div className="hidden items-center gap-2 xl:flex">
-            <Link href="/portals/student" className="inline-flex items-center gap-1.5 bg-emerald-600 px-3 py-2 text-[11px] font-semibold uppercase tracking-wide text-white hover:bg-emerald-700">
-              {Icon.user} Student Portal
+          <div className="hidden items-center gap-1.5 xl:flex">
+            <Link href="/portals/student" className="whitespace-nowrap bg-emerald-600 px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-white hover:bg-emerald-700">
+              Student Portal
             </Link>
-            <Link href="/portals/staff" className="inline-flex items-center gap-1.5 bg-sky-800 px-3 py-2 text-[11px] font-semibold uppercase tracking-wide text-white hover:bg-sky-900">
-              {Icon.briefcase} Staff Portal
+            <Link href="/portals/staff" className="whitespace-nowrap bg-sky-800 px-2.5 py-2 text-[11px] font-semibold uppercase tracking-wide text-white hover:bg-sky-900">
+              Staff Portal
             </Link>
           </div>
           <button onClick={() => setOpen(!open)} className="xl:hidden btn-outline !px-4 !py-2" aria-expanded={open} aria-label="Toggle menu">
